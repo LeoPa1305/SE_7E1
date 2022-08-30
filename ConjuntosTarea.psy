@@ -1,0 +1,40 @@
+grupo_U = set([1,2,3,4,5,6,7,8,9,10,11,12,13])                
+grupo_V = set([" "])                                     
+grupo_A = set([1,2,3,4,5,6,7])                                 
+grupo_B = set([1,3,5,7,9,11])                                   
+
+print("El universo esta conformado por los elementos: ",grupo_U)
+print("El conjunto vacio esta conformado por los elementos: ",grupo_V)
+print("El conjunto A esta conformado por los elementos: ",grupo_A)
+print("El conjunto B esta conformado por los elementos: ",grupo_B)
+
+gAB = grupo_A.union(grupo_B)
+print("\n\nLos elementos del conjunto A union B son",gAB)
+
+gAB = grupo_A.intersection(grupo_B)
+print("\n\nLos elementos del conjunto A interseccion B son",gAB)
+
+gAB = grupo_A.difference(grupo_B)
+print("\n\nLos elementos del conjunto A diferencia B son",gAB)
+
+gA = grupo_A.issubset(grupo_U)       
+print ("\n\nEl conjunto A, es subconjunto del universo? ",gA)
+gA = grupo_B.issubset(grupo_U)       
+print ("El conjunto B, es subconjunto del universo? ",gA)
+gB = grupo_V.issubset(grupo_U)       
+print ("El conjunto vacio, es subconjunto del universo? ",gB)
+
+gA = grupo_U.issuperset(grupo_A)       
+print ("\n\nEl universo es un superconjunto del conjunto A? ",gA)
+gA = grupo_U.issuperset(grupo_B)       
+print ("El universo es un superconjunto del conjunto B? ",gA)
+gA = grupo_U.issuperset(grupo_V)       
+print ("El universo es un superconjunto del conjunto vacio? ",gA)
+
+gI = grupo_A==grupo_B
+print("\n\nEl conjunto A y B son iguales? ", gI)
+
+gI = grupo_U.symmetric_difference(grupo_A)       
+print("\n\nLa difererencia simetrica del universo y el conjunto A es:", gI)
+gI = grupo_U.symmetric_difference(grupo_B)       
+print("La difererencia simetrica del universo y el conjunto B es:", gI)
