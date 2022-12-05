@@ -1,0 +1,96 @@
+#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+
+// Estructura de datos para almacenar un borde de graph
+struct Edge {
+    int src, dest;
+};
+
+// Una clase para representar un objeto graph
+class Graph
+{
+public:
+    // un vector de vectores para representar una lista de adyacencia
+    vector<vector<int>> adjList;
+
+    // Constructor de graph
+    Graph(vector<Edge> const &edges, int n)
+    {
+        // cambiar el tamaño del vector para contener `n` elementos de tipo `vector<int>`
+        adjList.resize(n);
+
+        // agrega bordes al grafo no dirigido
+        for (auto &edge: edges)
+        {
+            adjList[edge.src].push_back(edge.dest);
+            adjList[edge.dest].push_back(edge.src);
+        }
+    }
+};
+
+// Realiza BFS en el graph a partir del vértice `v`
+void BFS(Graph const &graph, int v, vector<bool> &discovered)
+{
+    // crea una queue para hacer BFS
+    queue<int> q;
+
+    // marca el vértice de origen como descubierto
+    discovered[v] = true;
+
+    // poner en queue el vértice fuente
+    q.push(v);
+
+    // bucle hasta que la queue esté vacía
+    while (!q.empty())
+    {
+        // quitar la queue del nodo frontal e imprimirlo
+        v = q.front();
+        q.pop();
+        cout << v << " ";
+
+        // hacer para cada borde (v, u)
+        for (int u: graph.adjList[v])
+        {
+            if (!discovered[u])
+            {
+                // marcarlo como descubierto y ponerlo en queue
+                discovered[u] = true;
+                q.push(u);
+            }
+        }
+    }
+}
+
+int main()
+{
+    // vector de los bordes del graph según el diagrama anterior
+    vector<Edge> edges = {
+        {1, 2}, {1, 3}, {1, 4}, {2, 5}, {2, 6}, {5, 9},
+        {5, 10}, {4, 7}, {4, 8}, {7, 11}, {7, 12}
+        // los vértices 0, 13 y 14 son nodos individuales
+    };
+
+    // número total de nodos en el graph (etiquetados de 0 a 14)
+    int n = 15;
+
+    // construye un graph a partir de los bordes dados
+    Graph graph(edges, n);
+
+    // para realizar un seguimiento de si se descubre un vértice o no
+    vector<bool> discovered(n, false);
+
+    // Realizar el recorrido BFS desde todos los nodos no descubiertos hasta
+    // cubrir todos los componentes conectados de un graph
+    for (int i = 0; i < n; i++)
+    {
+        if (discovered[i] == false)
+        {
+            // inicia el recorrido BFS desde el vértice `i`
+            BFS(graph, i, discovered);
+        }
+    }
+
+    return 0;
+}
