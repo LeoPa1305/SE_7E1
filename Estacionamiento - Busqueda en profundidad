@@ -1,0 +1,28 @@
+def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(start)
+    print(f"Lugar de estacionamiento encontrado en la posicion {start}")
+    if len(visited) == len(graph):
+        print("Todos los lugares de estacionamiento estan ocupados")
+        return
+    for next in graph[start]:
+        if next not in visited:
+            dfs(graph, next, visited)
+
+# Definir el grafo (estacionamiento con 10 lugares)
+graph = {
+    0: [1, 2],
+    1: [0, 3],
+    2: [0, 4],
+    3: [],
+    4: [2, 6],
+    5: [],
+    6: [4, 8],
+    7: [5, 9],
+    8: [6],
+    9: []
+}
+
+# Ejecutar la búsqueda en profundidad desde el lugar de estacionamiento 0
+dfs(graph, 0)
